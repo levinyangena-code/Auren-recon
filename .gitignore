@@ -5,10 +5,10 @@ __pycache__/
 *.pyd
 .Python
 .env
-.venv/
 .pytest_cache/
 coverage.xml
 htmlcov/
 .DS_Store
-sessions/
+sessions/*.pcap
+sessions/*.md
 *.log

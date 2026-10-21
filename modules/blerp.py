@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 
 class Crackle:
-    """Minimal Crackle analysis placeholder."""
+    """Minimal Crackle analysis wrapper."""
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config

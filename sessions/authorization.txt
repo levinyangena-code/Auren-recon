@@ -1,0 +1,38 @@
+from pathlib import Path
+
+import pytest
+
+from btrecon import load_config
+
+
+def test_load_config_reads_yaml(tmp_path):
+    config_file = tmp_path / "config.yaml"
+    config_file.write_text(
+        """
+project_name: test
+authorized_target:
+  identifier: AA:BB:CC:DD:EE:FF
+  owner: Responsible operator
+  authorized: true
+  authorization_file: ./auth.txt
+capture:
+  output_dir: ./sessions
+  pcap_file: ./sessions/test_capture.pcap
+report:
+  output_file: ./sessions/test_report.md
+tools:
+  required: []
+""".strip(),
+        encoding="utf-8",
+    )
+
+    config = load_config(str(config_file))
+    assert config["project_name"] == "test"
+    assert config["authorized_target"]["identifier"] == "AA:BB:CC:DD:EE:FF"
+
+
+def test_load_config_requires_existing_file(tmp_path):
+    missing = tmp_path / "missing.yaml"
+
+    with pytest.raises(FileNotFoundError):
+        load_config(str(missing))

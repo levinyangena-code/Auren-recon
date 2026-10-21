@@ -5,7 +5,7 @@ from typing import Any, Dict
 
 
 class BLERP:
-    """Minimal BLERP workflow placeholder."""
+    """Minimal BLERP workflow wrapper."""
 
     def __init__(self, config: Dict[str, Any]):
         self.config = config

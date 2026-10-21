@@ -11,7 +11,9 @@ def validate_authorization(target: Dict[str, Any]) -> bool:
     if target.get("authorized") is False:
         return False
 
-    if not target.get("identifier"):
+    identifier = str(target.get("identifier", "")).strip()
+    owner = str(target.get("owner", "")).strip()
+    if not identifier or not owner:
         return False
 
     auth_file = target.get("authorization_file")
@@ -21,3 +23,9 @@ def validate_authorization(target: Dict[str, Any]) -> bool:
             return False
 
     return True
+
+
+def ensure_authorized_target(target: Dict[str, Any]) -> Dict[str, Any]:
+    if not validate_authorization(target):
+        raise ValueError("Authorization validation failed. Target must be explicitly authorized.")
+    return target
